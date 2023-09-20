@@ -3,7 +3,6 @@
 ## @brief Bash functions to perform unit test
 ## @author Lydéric Debusschère
 
-source $(dirname $(realpath $0))/../api/utils/log_and_error.sh
 
 ## @fn f_test__file_exist
 ## @author Lydéric Debusschère
@@ -13,7 +12,7 @@ source $(dirname $(realpath $0))/../api/utils/log_and_error.sh
 ## @remark Example: f_test__file_exist  <file_path>/file
 f_test__file_exist() {
         if [[ ! -e $1 ]]; then
-                logko "File $1 does not exist !"
+                echo "File $1 does not exist !"
                 return 1
         fi
         return 0
@@ -27,7 +26,7 @@ f_test__file_exist() {
 ## @remark Example: f_test__file_is_readable  <file_path>/file
 f_test__file_is_readable() {
         if [[ ! -r $1 ]]; then
-                logko "File $1 is corrupted !"
+                echo "File $1 is corrupted !"
                 return 1
         fi
         return 0
@@ -41,7 +40,7 @@ f_test__file_is_readable() {
 ## @remark Example: f_test__file_is_x_tar  <file_path>/file
 f_test__file_is_x_tar(){
         if [[ $(file --mime-type $1 | awk '{print $(NF)}') != "application/x-tar" ]]; then
-                logko "File $1 is not of type application/x-tar.
+                echo "File $1 is not of type application/x-tar.
                 type: $(file --mime-type $1 | awk '{print $(NF)}')
                 "
                 return 1

@@ -3,7 +3,6 @@
 ## @brief Bash functions on strings
 ## @author Lydéric Debusschère
 
-source $(dirname $(realpath $0))/../api/utils/log_and_error.sh
 
 ## @def SGR_BOLD SGR_ITALIC SGR_UNDERLINE SGR_RESET SGR_BLACK SGR_RED SGR_GREEN SGR_ORANGE SGR_BLUE SGR_PURPLE SGR_CYAN SGR_WHITE
 ## @brief Define ANSI Select Graphic Rendition (SGR)
@@ -25,13 +24,13 @@ SGR_WHITE="\033[37m"
 ## @author Lydéric Debusschère
 ## @brief check if each caracter is alphanumeric 
 ## @param _hash a string
-## @return exit 1 if `_hash` is not alphanumeric
+## @return return 1 if `_hash` is not alphanumeric
 is_alphanum() {
         _hash=$1
         _hash_length=${#_hash}
         if [[ ! "$_hash" =~ ^[0-9a-zA-Z]{$_hash_length}$ ]]; then
-                logko "$_hash: hash is not alphanumeric !"
-                exit 1
+                echo "$_hash: hash is not alphanumeric !"
+                return 1
         fi
 }
 
@@ -40,14 +39,14 @@ is_alphanum() {
 ## @brief check if the length of a string is equal to an assert value
 ## @param _hash a string
 ## @param _assert_len an integer, the length
-## @return exit 1 if `_hash` length is not `_assert_length`
+## @return return 1 if `_hash` length is not `_assert_length`
 assert_len() {
         _hash=$1
         _assert_len=$2
         _hash_length=${#_hash}
         if [[ "$_hash_length" != "$_assert_len" ]]; then
-                logko "$_hash: hash length is not $_assert_len !"
-                exit 1
+                echo "$_hash: hash length is not $_assert_len !"
+                return 1
         fi
 }
 
@@ -55,7 +54,7 @@ assert_len() {
 ## @author Lydéric Debusschère
 ## @brief check if a string could be a hash of length 32
 ## @param _hash a string
-## @return exit 1 if `_hash` is not alphanumeric of length 32
+## @return return 1 if `_hash` is not alphanumeric of length 32
 is_hash_32() {
         _hash=$1
         is_alphanum $_hash
